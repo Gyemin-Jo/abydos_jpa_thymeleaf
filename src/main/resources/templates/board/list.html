@@ -65,33 +65,34 @@
 		 */
 		 function findAll() {
 
-			fetch('/api/boards').then(response => {
-				if (response.ok) {
-   					return response.json();
-				}
-			}).then(json => {
-				let html = '';
+			fetch('/board/list').then(response => {
+                if(response.ok){
+                    return response.json();
+                }
+            }).then(data => {
+                console.log(data);
+                let html = '';
 
-				if (!json.length) {
-					html = '<td colspan="5">등록된 게시글이 없습니다.</td>';
-				} else {
-					json.forEach((obj, idx) => {
-						html += `
-							<tr>
-    							<td>${json.length - idx}</td>
-    							<td class="text-left">
-    								<a href="javascript: void(0);">${obj.title}</a>
-    							</td>
-    							<td>${obj.writer}</td>
-    							<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
-    							<td>${obj.hits}</td>
-							</tr>
-						`;
-					});
-				}
+                if(!data.length){
+                    html = `<td colspan="5"> 등록된 게시글이 없습니다.</td>`;
+                }else{
+                    data.forEach((obj, idx) => {
+                        html += `
+                                <tr>
+                                    <td>${data.length - idx}</td>
+                                    <td class="text-left">
+                                        <a href="javascript:void(0);">${obj.title}</a>
+                                    </td>
+                                    <td>${obj.writer}</td>
+                                    <td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+                                    <td>${obj.hits}</td>
+                                </tr>
+                                `;
+                    })
+                }
 
-				document.getElementById('list').innerHTML = html;
-			});
+                document.getElementById(`list`).innerHTML = html;
+            })
 		}
 
 	/*]]>*/

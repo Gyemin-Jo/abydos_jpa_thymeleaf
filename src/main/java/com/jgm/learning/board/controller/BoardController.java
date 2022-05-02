@@ -5,6 +5,7 @@ import com.jgm.learning.board.dto.BoardResponseDto;
 import com.jgm.learning.board.model.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,8 +39,8 @@ public class BoardController {
      * 게시글 리스트 조회
      */
     @GetMapping("/list")
-    public String findAll(){
-        List<BoardResponseDto> List = boardService.findAll();
+    public String findAll(Model model){
+        model.addAttribute("list", boardService.findAll());
         return "board/list";
     }
 }
