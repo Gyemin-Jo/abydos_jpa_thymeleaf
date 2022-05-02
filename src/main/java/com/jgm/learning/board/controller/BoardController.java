@@ -2,19 +2,14 @@ package com.jgm.learning.board.controller;
 
 import com.jgm.learning.board.dto.BoardRequestDto;
 import com.jgm.learning.board.dto.BoardResponseDto;
-import com.jgm.learning.board.entity.Board;
-import com.jgm.learning.board.entity.BoardRepository;
 import com.jgm.learning.board.model.BoardService;
-import com.jgm.learning.exception.CustomException;
-import com.jgm.learning.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
@@ -42,8 +37,9 @@ public class BoardController {
     /**
      * 게시글 리스트 조회
      */
-    @GetMapping("/boardList")
-    public List<BoardResponseDto> findAll(){
-        return boardService.findAll();
+    @GetMapping("/list")
+    public String findAll(){
+        List<BoardResponseDto> List = boardService.findAll();
+        return "board/list";
     }
 }
