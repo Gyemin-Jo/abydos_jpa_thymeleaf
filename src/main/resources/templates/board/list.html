@@ -57,7 +57,7 @@
 		 */
 		window.onload = () => {
 
-			findAll();
+			//findAll();
 		}
 
 		/**
@@ -65,14 +65,20 @@
 		 */
 		 function findAll() {
 
-			fetch('/board/list').then(response => {
+			fetch('/board/list', {
+                    method : 'GET',
+                    headers : {
+                        'Content-Type' : 'application/json',
+                }
+            }).then(response => {
+                console.log("111111111");
                 if(response.ok){
+                    console.log(response);
                     return response.json();
                 }
             }).then(data => {
                 console.log(data);
                 let html = '';
-
                 if(!data.length){
                     html = `<td colspan="5"> 등록된 게시글이 없습니다.</td>`;
                 }else{
@@ -90,7 +96,6 @@
                                 `;
                     })
                 }
-
                 document.getElementById(`list`).innerHTML = html;
             })
 		}
